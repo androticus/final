@@ -93,7 +93,7 @@ We express the values on the datastack, from deepest to topmost, using this nota
 // ( nice:b -- )
 : nice
   if "Nice!\n" else "Naughty!\n" then 
-  $ // this prints the item on the stack, if you didn't know already...
+  $
 ;
 
 > true nice
@@ -193,9 +193,9 @@ help DynamicObject
 
 ## Dive into the User Guide
 
-The Final User Guide has a introductory section, to get you oriented, a more detailed section covering all the basic language constructs, then a section on every feature/subsystem that the language offers. It is available online, and is also in the installed imaged as a pdf with table of contents/index.
+The Final User Guide has a introductory section, to get you oriented, a more detailed section covering all the basic language constructs, then a section on every feature/subsystem that the language offers. It is available online, and is also in the installed image as a pdf with table of contents/index.
 
-[Final User Guide](final.androticus.ai/docs/intro/)
+[Final User Guide](https://final.androticus.ai/docs/intro/)
 
 ## Build from Source
 

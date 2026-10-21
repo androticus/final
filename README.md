@@ -38,7 +38,7 @@ In addition, Final has a framework for making Simulations and throwback Games ca
 
 ## Install It
 
-Go to the [Final Website](final.androticus.ai/downloads/) to get the binary for your machine.
+Go to the [Final Website](https://final.androticus.ai/downloads/) to get the binary for your machine.
 
 ## Run It
 

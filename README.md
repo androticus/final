@@ -199,4 +199,4 @@ The Final User Guide has a introductory section, to get you oriented, a more det
 
 ## Build from Source
 
-See [How To Build](how-to-build.md) for more details on building `final`, `final-gui`, and the embedding examples. Point your AI at it, and ask it to help install the prerquisites needed to build. Note that `final` (TUI version) is a straight go build, and is easiest to build; `final-gui` requires `cgo` and additional prerequisites, which vary by platform. (Final is easiest to build on Mac and Linux.)
+See [How To Build](/how-to-build.md) for more details on building `final`, `final-gui`, and the embedding examples. Point your AI at it, and ask it to help install the prerquisites needed to build. Note that `final` (TUI version) is a straight go build, and is easiest to build; `final-gui` requires `cgo` and additional prerequisites, which vary by platform. (Final is easiest to build on Mac and Linux.)

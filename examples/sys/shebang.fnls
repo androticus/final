@@ -1,0 +1,2 @@
+#!/usr/bin/env final
+sys.params >json $ nl

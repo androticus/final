@@ -1,0 +1,28 @@
+/* Content headings — smaller than browser defaults; body is 1.6rem (16px). */
+
+#mdbook-content h1 {
+    font-size: 2.15rem; /* ~21.5px */
+    margin-block-start: 0.5em;
+    margin-block-end: 0.35em;
+}
+
+#mdbook-content h2 {
+    font-size: 1.85rem; /* ~18.5px */
+    margin-block-start: 1.0em;
+    margin-block-end: 0.3em;
+}
+
+#mdbook-content h3 {
+    font-size: 1.68rem; /* ~16.8px; still above body */
+    margin-block-start: 0.9em;
+    margin-block-end: 0.25em;
+}
+
+/* Intro hero image (pi-breadboard); sized independently of intro book's .book-logo. */
+.pi-hero {
+    width: 44rem;      /* 4× intro book-logo (11rem); try 33–50rem */
+    max-width: 90%;
+    height: auto;
+    display: block;
+    margin: 0 auto 1.25rem;
+}

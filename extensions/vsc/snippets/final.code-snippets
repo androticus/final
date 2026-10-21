@@ -1,0 +1,83 @@
+{
+  "Block comment": {
+    "prefix": "/*",
+    "body": [
+      "/*",
+      "$0",
+      "*/"
+    ],
+    "description": "Block comment — flush left (no indent)"
+  },
+  "Raw string": {
+    "prefix": ["raw", "`"],
+    "body": [
+      "`",
+      "$0",
+      "`"
+    ],
+    "description": "Raw multiline string — flush left (no indent)"
+  },
+  "Colon definition": {
+    "prefix": ["def", ":"],
+    "body": [
+      ": ${1:name}",
+      "  $0",
+      ";"
+    ],
+    "description": "Colon definition with closing ;"
+  },
+  "if … then": {
+    "prefix": "if",
+    "body": [
+      "if",
+      "  $0",
+      "then"
+    ],
+    "description": "if … then sandwich"
+  },
+  "nif … then": {
+    "prefix": "nif",
+    "body": [
+      "nif",
+      "  $0",
+      "then"
+    ],
+    "description": "nif … then sandwich"
+  },
+  "switch … /switch": {
+    "prefix": "switch",
+    "body": [
+      "switch",
+      "  $0",
+      "/switch"
+    ],
+    "description": "switch … /switch sandwich"
+  },
+  "foreach … /foreach": {
+    "prefix": "foreach",
+    "body": [
+      "foreach",
+      "  $0",
+      "/foreach"
+    ],
+    "description": "foreach … /foreach sandwich"
+  },
+  "forever … /forever": {
+    "prefix": "forever",
+    "body": [
+      "forever",
+      "  $0",
+      "/forever"
+    ],
+    "description": "forever … /forever sandwich"
+  },
+  "begin … closer": {
+    "prefix": "begin",
+    "body": [
+      "begin",
+      "  $0",
+      "${1|again,until,repeat|}"
+    ],
+    "description": "begin loop — choose closer (again / until / repeat; while … repeat is hand-edited)"
+  }
+}

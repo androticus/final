@@ -1,0 +1,14 @@
+{
+  "name": "projects/csv-demo",
+  "description": "Tiny Table → CSV string demo using the csv module.",
+  "version": "v0.0.1",
+  "requires": [
+    {
+      "name": "github.com/androticus/final-go/modules/csv",
+      "version": "v0.1.0"
+    }
+  ],
+  "files": [
+    "csv-demo.fnl"
+  ]
+}

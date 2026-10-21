@@ -1,0 +1,12 @@
+{
+  "name" : "github.com/androticus/final-go/modules/simgame/life",
+  "description" : "Conway's Game of Life core engine and extras.",
+  "final" : "v0.0.8",
+  "version" : "v0.1.0",
+  "requires" : [],
+  "files" : [
+    "10-life-core.fnl"
+   ]
+}
+  
+  

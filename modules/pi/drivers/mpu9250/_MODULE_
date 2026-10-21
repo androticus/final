@@ -1,0 +1,10 @@
+{
+  "name" : "github.com/androticus/final-go/modules/pi/drivers/mpu9250",
+  "description" : "MPU-9250 + AK8963 I²C driver (accel/gyro/mag).",
+  "final" : "v0.0.8",
+  "version" : "v0.1.0",
+  "requires" : [],
+  "files" : [
+    "10-mpu9250.fnl"
+  ]
+}

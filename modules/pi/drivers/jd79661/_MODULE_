@@ -1,0 +1,10 @@
+{
+  "name" : "github.com/androticus/final-go/modules/pi/drivers/jd79661",
+  "description" : "Adafruit JD79661 4-color e-ink (2.13\") over SpiPeriph.",
+  "final" : "v0.0.8",
+  "version" : "v0.1.0",
+  "requires" : [],
+  "files" : [
+    "10-jd79661.fnl"
+  ]
+}

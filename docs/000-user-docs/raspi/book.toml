@@ -1,0 +1,16 @@
+[book]
+title = "Final — Raspberry Pi Support"
+description = "Final support for Raspberry Pi (5 and later)"
+src = "."
+
+[build]
+build-dir = "../raspi-book"
+
+[output.html]
+site-url = "/docs/raspi/"
+git-repository-url = ""
+additional-css = ["theme/css/headings.css"]
+
+[output.html.print]
+enable = true
+page-break = true

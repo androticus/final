@@ -1,0 +1,84 @@
+/*
+  Overrides mdBook's stock theme/css/print.css (linked with media="print").
+  Keep the stock layout rules — they hide the TOC and undo the sidebar
+  offset that otherwise leaves a blank left column. Then add @page margins.
+*/
+
+/* --- stock mdBook 0.5.4 print rules (do not drop) --- */
+
+#mdbook-sidebar,
+#mdbook-menu-bar,
+.nav-chapters,
+.mobile-nav-chapters,
+.nav-wrapper,
+.nav-wide-wrapper,
+#mdbook-help-container {
+    display: none !important;
+}
+
+#mdbook-page-wrapper.page-wrapper {
+    transform: none !important;
+    margin-inline-start: 0 !important;
+    margin-left: 0 !important;
+    overflow-y: initial;
+}
+
+#mdbook-content {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
+.page {
+    overflow-y: initial;
+}
+
+code {
+    direction: ltr !important;
+}
+
+pre > .buttons {
+    z-index: 2;
+}
+
+a, a:visited, a:active, a:hover {
+    color: #4183c4;
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    page-break-inside: avoid;
+    page-break-after: avoid;
+}
+
+pre, code {
+    page-break-inside: avoid;
+    white-space: pre-wrap;
+}
+
+.fa,
+.fa-svg {
+    display: none !important;
+}
+
+/* --- custom page header / footer (Chrome 131+ / Safari 18.2+) --- */
+/*
+  Margin boxes replace the browser's default URL/date chrome when supported.
+  If Chrome still shows its defaults, uncheck "Headers and footers" in the
+  print dialog (CSS margin boxes and that checkbox are separate).
+*/
+
+@page {
+    margin: 0.75in;
+
+    @top-center {
+        content: "Final — Introduction";
+        font-size: 9pt;
+        color: #444;
+    }
+
+    @bottom-center {
+        content: counter(page);
+        font-size: 10pt;
+    }
+}

@@ -1,0 +1,13 @@
+{
+  "name" : "github.com/androticus/final-go/modules/csv",
+  "description" : "Final Table reading and writing for CSV/TSV files.",
+  "final" : "v0.0.7-rc1",
+  "version" : "v0.1.0",
+  "requires" : [],
+  "files" : [
+    "10-csv-export.fnl",
+    "20-csv-import.fnl"
+  ]
+}
+  
+  

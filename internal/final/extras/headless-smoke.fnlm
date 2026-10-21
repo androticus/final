@@ -1,0 +1,2 @@
+// Headless smoke manifest (paths relative to this file's directory)
+headless-smoke.fnl

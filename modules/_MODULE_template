@@ -1,0 +1,21 @@
+{
+  "name" : "fully qualified module name, with repository and module name",
+  "description" : "Human-readable description of the module.",
+  "final" : " eg. v0.0.7-rc1",
+  "version" : " eg. v0.1.0",
+  "requires" : [
+    {
+      "name" : "github.com/someauthor/someModule",
+      "version" : " eg. v1.0.0",
+      "prefix" : "optional prefix for the module, if not the default, eg mod1"
+    },
+    { "name" : "gitlab.com/notherauthor/someOtherModule", "version" : "v0.5.0", "prefix" : "mod2" }
+  ],
+  "files" : [
+    "someFile.fnl",
+    "someOtherFile.fnl",
+    "utils/someThirdFile.fnl"
+  ]
+}
+  
+  

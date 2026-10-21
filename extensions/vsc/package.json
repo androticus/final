@@ -1,0 +1,59 @@
+{
+  "name": "final-lang",
+  "displayName": "Final",
+  "description": "Final language support for .fnl — highlighting, 2-space indent, sandwiches via snippets.",
+  "version": "0.0.7",
+  "publisher": "final",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "keywords": [
+    "final",
+    "fnl"
+  ],
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/androticus/final",
+    "directory": "extensions/vsc"
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "final",
+        "aliases": [
+          "Final",
+          "final"
+        ],
+        "extensions": [
+          ".fnl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "final",
+        "scopeName": "source.final",
+        "path": "./syntaxes/final.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "final",
+        "path": "./snippets/final.code-snippets"
+      }
+    ],
+    "configurationDefaults": {
+      "[final]": {
+        "editor.tabSize": 2,
+        "editor.insertSpaces": true,
+        "editor.detectIndentation": false,
+        "files.eol": "\n"
+      }
+    }
+  }
+}

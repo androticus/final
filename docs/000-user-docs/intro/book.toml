@@ -1,0 +1,16 @@
+[book]
+title = "Final — Introduction"
+description = "Succinct user documentation for Final"
+src = "."
+
+[build]
+build-dir = "../intro-book"
+
+[output.html]
+site-url = "/docs/intro/"
+git-repository-url = ""
+additional-css = ["theme/css/headings.css"]
+
+[output.html.print]
+enable = true
+page-break = true

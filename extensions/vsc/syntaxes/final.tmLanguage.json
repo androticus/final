@@ -1,0 +1,58 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Final",
+  "scopeName": "source.final",
+  "patterns": [
+    { "include": "#comment-line" },
+    { "include": "#comment-block" },
+    { "include": "#string-double" },
+    { "include": "#string-raw" },
+    { "include": "#rune" },
+    { "include": "#definition-name" }
+  ],
+  "repository": {
+    "comment-line": {
+      "name": "comment.line.double-slash.final",
+      "begin": "//",
+      "end": "$"
+    },
+    "comment-block": {
+      "name": "comment.block.final",
+      "begin": "/\\*",
+      "end": "\\*/"
+    },
+    "string-double": {
+      "name": "string.quoted.double.final",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.final",
+          "match": "\\\\(?:[abfnrtv\\\\\"']|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8}|[0-7]{1,3})"
+        }
+      ]
+    },
+    "string-raw": {
+      "name": "string.quoted.other.raw.final",
+      "begin": "`",
+      "end": "`"
+    },
+    "rune": {
+      "name": "constant.character.final",
+      "begin": "'",
+      "end": "'",
+      "patterns": [
+        {
+          "name": "constant.character.escape.final",
+          "match": "\\\\(?:[abfnrtv\\\\\"']|x[0-9A-Fa-f]{2}|u[0-9A-Fa-f]{4})"
+        }
+      ]
+    },
+    "definition-name": {
+      "match": "(?:^|\\s)(:)(\\s+)(\\S+)",
+      "captures": {
+        "3": { "name": "entity.name.function.final" }
+      }
+    }
+  }
+}

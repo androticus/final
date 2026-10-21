@@ -1,0 +1,2 @@
+// Linux + Pi platform manifest (headless)
+// Pi HAL (gpio consts) is core tranche4 when finalpi is linked — nothing Local here.

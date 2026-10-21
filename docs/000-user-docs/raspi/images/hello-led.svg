@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 160" width="560" height="160" role="img" aria-labelledby="title desc">
+  <title id="title">Hello LED wiring schematic</title>
+  <desc id="desc">GPIO pin through a series resistor to an LED anode, cathode to ground.</desc>
+  <style>
+    .wire { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .sym  { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .box  { fill: none; stroke: currentColor; stroke-width: 2; }
+    .lbl  { fill: currentColor; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 13px; }
+    .lbl-sm { fill: currentColor; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif; font-size: 11px; opacity: 0.85; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; font-weight: 600; }
+  </style>
+
+  <!-- Pin indicator -->
+  <rect class="box" x="16" y="58" width="88" height="36" rx="6"/>
+  <text class="lbl mono" x="60" y="81" text-anchor="middle">GPIO 27</text>
+  <text class="lbl-sm" x="60" y="112" text-anchor="middle">pin</text>
+
+  <!-- Wire: pin to resistor -->
+  <path class="wire" d="M104 76 H150"/>
+
+  <!-- Resistor (IEC rectangle) -->
+  <rect class="box" x="150" y="60" width="72" height="32"/>
+  <text class="lbl mono" x="186" y="81" text-anchor="middle">220&#x3A9;</text>
+  <text class="lbl-sm" x="186" y="112" text-anchor="middle">or 330&#x3A9;</text>
+
+  <!-- Wire: resistor to LED -->
+  <path class="wire" d="M222 76 H280"/>
+
+  <!-- LED (anode left, cathode right) -->
+  <path class="sym" d="M280 56 L320 76 L280 96 Z"/>
+  <path class="sym" d="M320 56 V96"/>
+  <path class="sym" d="M292 48 l14 -12 M292 48 h10 M292 48 v10"/>
+  <path class="sym" d="M306 52 l14 -12 M306 52 h10 M306 52 v10"/>
+  <text class="lbl mono" x="300" y="120" text-anchor="middle">LED</text>
+  <text class="lbl-sm" x="286" y="136" text-anchor="middle">A</text>
+  <text class="lbl-sm" x="320" y="136" text-anchor="middle">K</text>
+
+  <!-- Wire: LED to GND -->
+  <path class="wire" d="M320 76 H400"/>
+
+  <!-- GND symbol -->
+  <path class="sym" d="M400 76 V92"/>
+  <path class="sym" d="M380 92 H420"/>
+  <path class="sym" d="M386 100 H414"/>
+  <path class="sym" d="M394 108 H406"/>
+  <text class="lbl mono" x="400" y="132" text-anchor="middle">GND</text>
+
+  <!-- Flow hint -->
+  <text class="lbl-sm" x="250" y="28" text-anchor="middle">series: pin -&gt; resistor -&gt; LED -&gt; ground</text>
+</svg>

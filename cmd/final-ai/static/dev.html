@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>final-ai (dev)</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --border: #2a2f3d;
+      --text: #e8eaed;
+      --accent: #6c9eff;
+      --user-bg: #252b3a;
+      --muted: #9aa0a6;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+    .tabs {
+      display: flex;
+      gap: 0.25rem;
+    }
+    .tab {
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font: inherit;
+    }
+    .tab.active {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--accent);
+    }
+    .panel {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      min-height: 0;
+    }
+    .panel.active {
+      display: flex;
+    }
+    #history {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .turn { display: flex; flex-direction: column; gap: 0.5rem; }
+    .user-row { display: flex; justify-content: flex-end; }
+    .user-bubble {
+      max-width: 72%;
+      background: var(--user-bg);
+      border: 1px solid var(--border);
+      border-radius: 1rem 1rem 0.25rem 1rem;
+      padding: 0.75rem 1rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .assistant {
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.5;
+    }
+    .composer {
+      border-top: 1px solid var(--border);
+      padding: 1rem 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-end;
+      background: var(--surface);
+    }
+    textarea {
+      flex: 1;
+      resize: none;
+      min-height: 2.75rem;
+      max-height: 12rem;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      background: var(--bg);
+      color: var(--text);
+      font: inherit;
+      line-height: 1.4;
+    }
+    textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+    button.send {
+      padding: 0.65rem 1.25rem;
+      border: none;
+      border-radius: 0.75rem;
+      background: var(--accent);
+      color: #0f1117;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    button.send:disabled { opacity: 0.5; cursor: not-allowed; }
+    .error { color: #ff8a80; font-size: 0.9rem; padding: 0 1.25rem 0.5rem; }
+    .busy { color: var(--muted); font-size: 0.9rem; padding: 0 1.25rem 0.5rem; }
+    .dev-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      padding: 1rem 1.25rem;
+      gap: 0.75rem;
+    }
+    .dev-body label {
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .dev-row {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      gap: 0.35rem;
+    }
+    .dev-row-response {
+      flex: 1;
+      min-height: 6rem;
+    }
+    .dev-row-fixed {
+      flex: 0 0 auto;
+    }
+    #dev-response {
+      flex: 1;
+      min-height: 0;
+      max-height: none;
+      background: var(--surface);
+      color: var(--text);
+      font-family: ui-monospace, monospace;
+      font-size: 0.9rem;
+    }
+    #dev-send-history {
+      flex: none;
+      height: 8rem;
+      min-height: 8rem;
+      max-height: 8rem;
+      resize: none;
+      background: var(--surface);
+      color: var(--text);
+      font-family: ui-monospace, monospace;
+      font-size: 0.9rem;
+    }
+    .dev-prompt-row {
+      display: flex;
+      gap: 0.75rem;
+      align-items: center;
+    }
+    #dev-script {
+      flex: 1;
+      height: 8rem;
+      min-height: 8rem;
+      max-height: 8rem;
+      resize: none;
+      font-family: ui-monospace, monospace;
+      font-size: 0.9rem;
+      min-width: 0;
+    }
+    .dev-send-col {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>final-ai</h1>
+    <div class="tabs">
+      <button type="button" class="tab active" data-tab="chat">AI Chat</button>
+      <button type="button" class="tab" data-tab="dev">Dev</button>
+    </div>
+  </header>
+
+  <div id="panel-chat" class="panel active">
+    <div id="history"></div>
+    <div id="chat-error" class="error" hidden></div>
+    <div class="composer">
+      <textarea id="chat-prompt" rows="1" placeholder="Message…"></textarea>
+      <button type="button" class="send" id="chat-send">Send</button>
+    </div>
+  </div>
+
+  <div id="panel-dev" class="panel">
+    <div class="dev-body">
+      <div class="dev-row dev-row-response">
+        <label for="dev-response">Response</label>
+        <textarea id="dev-response" readonly placeholder="stdout and errors appear here…"></textarea>
+      </div>
+      <div class="dev-row dev-row-fixed">
+        <label for="dev-send-history">Send History</label>
+        <textarea id="dev-send-history" readonly placeholder="sent commands appear here…"></textarea>
+      </div>
+      <div class="dev-row dev-row-fixed">
+        <label for="dev-script">Final Source</label>
+        <div class="dev-prompt-row">
+          <textarea id="dev-script" placeholder=": foo 42 $ nl ;  foo"></textarea>
+          <div class="dev-send-col">
+            <button type="button" class="send" id="dev-send">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="dev-busy" class="busy" hidden>Waiting for AI</div>
+    <div id="dev-error" class="error" hidden></div>
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const panels = {
+      chat: document.getElementById('panel-chat'),
+      dev: document.getElementById('panel-dev'),
+    };
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.remove('active'));
+        tab.classList.add('active');
+        Object.values(panels).forEach((p) => p.classList.remove('active'));
+        panels[tab.dataset.tab].classList.add('active');
+      });
+    });
+
+    function autoGrow(el) {
+      el.style.height = 'auto';
+      el.style.height = Math.min(el.scrollHeight, 12 * 16) + 'px';
+    }
+
+    // --- AI Chat ---
+    const historyEl = document.getElementById('history');
+    const chatPrompt = document.getElementById('chat-prompt');
+    const chatSend = document.getElementById('chat-send');
+    const chatError = document.getElementById('chat-error');
+
+    chatPrompt.addEventListener('input', () => autoGrow(chatPrompt));
+
+    function appendTurn(user, assistant) {
+      const turn = document.createElement('div');
+      turn.className = 'turn';
+      const userRow = document.createElement('div');
+      userRow.className = 'user-row';
+      const bubble = document.createElement('div');
+      bubble.className = 'user-bubble';
+      bubble.textContent = user;
+      userRow.appendChild(bubble);
+      turn.appendChild(userRow);
+      const asst = document.createElement('div');
+      asst.className = 'assistant';
+      asst.textContent = assistant;
+      turn.appendChild(asst);
+      historyEl.appendChild(turn);
+      historyEl.scrollTop = historyEl.scrollHeight;
+    }
+
+    async function sendChat() {
+      const message = chatPrompt.value.trim();
+      if (!message) return;
+      chatError.hidden = true;
+      chatSend.disabled = true;
+      chatPrompt.disabled = true;
+      setAiBusy(true);
+      try {
+        const res = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || res.statusText);
+        appendTurn(message, data.reply || '');
+        chatPrompt.value = '';
+        autoGrow(chatPrompt);
+      } catch (e) {
+        chatError.textContent = e.message;
+        chatError.hidden = false;
+      } finally {
+        setAiBusy(false);
+        chatSend.disabled = false;
+        chatPrompt.disabled = false;
+        chatPrompt.focus();
+      }
+    }
+
+    chatSend.addEventListener('click', sendChat);
+    chatPrompt.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendChat();
+      }
+    });
+
+    // --- Dev ---
+    const devScript = document.getElementById('dev-script');
+    const devResponse = document.getElementById('dev-response');
+    const devSendHistory = document.getElementById('dev-send-history');
+    const devSend = document.getElementById('dev-send');
+    const devError = document.getElementById('dev-error');
+    const devBusyEl = document.getElementById('dev-busy');
+    let aiBusy = false;
+    let devBusy = false;
+
+    function syncDevSendEnabled() {
+      devSend.disabled = aiBusy || devBusy;
+    }
+
+    function setAiBusy(busy) {
+      aiBusy = busy;
+      devBusyEl.hidden = !busy;
+      syncDevSendEnabled();
+    }
+
+    function appendSendHistory(script) {
+      let cur = devSendHistory.value;
+      let next = '';
+      if (cur) {
+        next = cur;
+        if (!cur.endsWith('\n')) next += '\n';
+        next += '\n'; // blank line between send tranches
+      }
+      next += script;
+      if (!script.endsWith('\n')) next += '\n';
+      devSendHistory.value = next;
+      devSendHistory.scrollTop = devSendHistory.scrollHeight;
+    }
+
+    async function sendDev() {
+      if (aiBusy) return;
+      const script = devScript.value;
+      if (!script.trim()) return;
+      devError.hidden = true;
+      devBusy = true;
+      syncDevSendEnabled();
+      devScript.disabled = true;
+      appendSendHistory(script);
+      devResponse.value = 'Running…';
+      try {
+        const res = await fetch('/api/final/run', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ script, timeoutS: 0 }),
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || res.statusText);
+        let text = data.response || '';
+        if (data.error) {
+          text = text ? text + '\n\n[error] ' + data.error : '[error] ' + data.error;
+        }
+        devResponse.value = text || '(no output)';
+      } catch (e) {
+        devError.textContent = e.message;
+        devError.hidden = false;
+        devResponse.value = '';
+      } finally {
+        devBusy = false;
+        syncDevSendEnabled();
+        if (!aiBusy) {
+          devScript.disabled = false;
+          devScript.focus();
+        }
+      }
+    }
+
+    devSend.addEventListener('click', sendDev);
+    devScript.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        sendDev();
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,2 @@
+// Pi GPIO soft smoke (requires finalpi + linux/pi platform load)
+pi-gpio-smoke.fnl
